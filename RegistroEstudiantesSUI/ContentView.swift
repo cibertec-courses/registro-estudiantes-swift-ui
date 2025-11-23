@@ -129,10 +129,38 @@ struct ContentView: View {
        
     
     func registrarEstudiante() {
-       // print("Nombre: \(nombreEstudiante)")
-        //print("Edad: \(edad)")
-        //print("Carrera: \(carrera)")
-        print("temp")
+        ocultarTeclado()
+        
+        if nombreEstudiante.trimmingCharacters(in: .whitespaces).isEmpty{
+            mensajeAlerta = "Por favor ingres un nombre"
+            mostrarAlerta = true
+            return
+        }
+        
+        if edad.trimmingCharacters(in: .whitespaces).isEmpty{
+            mensajeAlerta = "Por favor ingresa una edad"
+            mostrarAlerta = true
+            return
+        }
+        
+        guard let edadNumerica = Int(edad) else{
+            mensajeAlerta = "La edad debe ser un numero valido"
+            mostrarAlerta = true
+            return
+        }
+        
+        if edadNumerica <= 0 || edadNumerica > 120{
+            mensajeAlerta = "La edad debe estar entre 1 y 120"
+            mostrarAlerta = true
+            return
+             
+        }
+        
+        print("Registro Existoso")
+        print("Nombre: \(nombreEstudiante)")
+        print("Edad: \(edad)")
+        print("Carrera: \(carrera)")
+        
     }
     func ocultarTeclado(){
         campoActivo = nil
