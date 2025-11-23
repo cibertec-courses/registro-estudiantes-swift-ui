@@ -1,44 +1,38 @@
-//
-//  ContentView.swift
-//  RegistroEstudiantesSUI
-//
-//  Created by Christiam Alberth Mendoza Ruiz on 23/11/25.
-//
 
 import SwiftUI
 
 struct ContentView: View {
-    
+
     @State private var nombreEstudiante: String = ""
     @State private var edad: String = ""
     @State private var carrera: String = ""
-    
+
     @State private var mostrarAlerta: Bool = false
     @State private var mensajeAlerta: String = ""
-    
+
     @FocusState private var campoActivo: Campo?
-    
+
     enum Campo {
         case nombre
         case edad
         case carrera
     }
-    
+
     var body: some View {
            NavigationView {
                ScrollView {
                    VStack(spacing: 0) {
-                       
+
                        VStack(spacing: 8) {
                            Image(systemName: "person.3.fill")
                                .font(.system(size: 50))
                                .foregroundColor(.white)
-                           
+
                            Text("Registro de Estudiantes")
                                .font(.title)
                                .fontWeight(.bold)
                                .foregroundColor(.white)
-                           
+
                            Text("Completa tus datos")
                                .font(.subheadline)
                                .foregroundColor(.white.opacity(0.9))
@@ -52,14 +46,14 @@ struct ContentView: View {
                                endPoint: .bottomTrailing
                            )
                        )
-                       
+
                        VStack(spacing: 25) {
-                           
+
                            VStack(alignment: .leading, spacing: 8) {
                                Label("Nombre Completo", systemImage: "person.fill")
                                    .font(.headline)
                                    .foregroundColor(.gray)
-                               
+
                                TextField("Ej: Juan Pérez", text: $nombreEstudiante)
                                    .textFieldStyle(CustomTextFieldStyle())
                                    .focused($campoActivo, equals: .nombre)
@@ -68,24 +62,24 @@ struct ContentView: View {
                                        campoActivo = .edad
                                    }
                            }
-                           
+
                            // Campo Edad
                            VStack(alignment: .leading, spacing: 8) {
                                Label("Edad", systemImage: "calendar")
                                    .font(.headline)
                                    .foregroundColor(.gray)
-                               
+
                                TextField("Ej: 20", text: $edad)
                                    .textFieldStyle(CustomTextFieldStyle())
                                    .keyboardType(.numberPad)
                                    .focused($campoActivo, equals: .edad)
                            }
-                           
+
                            VStack(alignment: .leading, spacing: 8) {
                                Label("Carrera", systemImage: "book.fill")
                                    .font(.headline)
                                    .foregroundColor(.gray)
-                               
+
                                TextField("Ej: Ingeniería de Sistemas", text: $carrera)
                                    .textFieldStyle(CustomTextFieldStyle())
                                    .focused($campoActivo, equals: .carrera)
@@ -94,7 +88,7 @@ struct ContentView: View {
                                        campoActivo = nil
                                    }
                            }
-                           
+
                            // Botón Registrar
                            Button(action: registrarEstudiante) {
                                HStack {
@@ -110,18 +104,18 @@ struct ContentView: View {
                                .shadow(color: Color.blue.opacity(0.3), radius: 5, x: 0, y: 3)
                            }
                            .padding(.top, 10)
-                           
+
                        }
                        .padding(25)
                        .background(Color.white)
-                       
+
                        Spacer(minLength: 20)
                    }
                }
                .background(Color(.systemGroupedBackground))
                .ignoresSafeArea(edges: .top)
                .navigationBarHidden(true)
-            
+
                .onTapGesture {
                    ocultarTeclado()
                }
@@ -159,11 +153,9 @@ struct ContentView: View {
     
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
+
+struct Content_Previews: PreviewProvider{
+    static var previews: some View{
         ContentView()
     }
 }
-
-
-
