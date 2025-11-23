@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct Estudiante: Identifiable{
+struct Estudiante: Identifiable, Codable{
     var id = UUID()
     var nombre: String
     var edad : Int
@@ -14,7 +14,7 @@ struct Estudiante: Identifiable{
     var fechaRegistro: Date
     
     
-    var fechaFormatead : String{
+    var fechaFormateada : String{
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .short

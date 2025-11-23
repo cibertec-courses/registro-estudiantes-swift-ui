@@ -10,6 +10,8 @@ struct ContentView: View {
     @State private var mostrarAlerta: Bool = false
     @State private var mensajeAlerta: String = ""
 
+    @ObservedObject var viewModel = EstudiantesViewModel.shared
+    
     @FocusState private var campoActivo: Campo?
 
     enum Campo {
@@ -104,6 +106,21 @@ struct ContentView: View {
                                .shadow(color: Color.blue.opacity(0.3), radius: 5, x: 0, y: 3)
                            }
                            .padding(.top, 10)
+                           
+                           NavigationLink(destination: ListaEstudiantesView()){
+                               HStack{
+                                   Image(systemName: "list.bullet.rectangle")
+                                   Text("Ver Estudiantes (\(viewModel.estudiantes.count)")
+                                   
+                               }
+                               .frame(maxWidth: .infinity)
+                                   .padding()
+                                   .background(Color.green)
+                                   .foregroundColor(.white)
+                                   .cornerRadius(12)
+                                   .shadow(color: Color.green.opacity(0.3), radius: 5, x: 0, y: 3)
+                           }.padding(.horizontal, 25)
+                               .padding(.top, 10)
 
                        }
                        .padding(25)
@@ -155,13 +172,22 @@ struct ContentView: View {
             return
              
         }
-        
+        viewModel.agregarEstudiante(nombre: nombreEstudiante, edad: edadNumerica, carrera: carrera)
         print("Registro Existoso")
         print("Nombre: \(nombreEstudiante)")
         print("Edad: \(edad)")
         print("Carrera: \(carrera)")
+        mensajeAlerta = "Estudiante registrado exitosamente"
+        mostrarAlerta = true
         
     }
+    
+    func limpiarCampos(){
+        nombreEstudiante = ""
+        edad = ""
+        carrera = ""
+    }
+    
     func ocultarTeclado(){
         campoActivo = nil
     }

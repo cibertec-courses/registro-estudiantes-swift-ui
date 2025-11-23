@@ -1,42 +1,39 @@
-//
-//  EstudianteViewModel.swift
-//  RegistroEstudiantesSUI
-//
-//  Created by Christiam Alberth Mendoza Ruiz on 23/11/25.
-//
-
 import Foundation
 import Combine
-internal import SwiftUI
+import SwiftUI
 
-class EstudianteViewModel: ObservableObject {
+class EstudiantesViewModel: ObservableObject {
     
     @Published var estudiantes: [Estudiante] = []
     
-    static let shared = EstudianteViewModel()
+    static let shared = EstudiantesViewModel()
     
     private init() {
-        cargarEstudiantesPrueba()
+        cargarEstudiantesDePrueba()
     }
     
-    func agregarEstudiante(nombre:String, edad: Int, carrera: String){
+    func agregarEstudiante(nombre: String, edad: Int, carrera: String) {
         let nuevoEstudiante = Estudiante(
             nombre: nombre,
             edad: edad,
             carrera: carrera,
-            fechaRegistro: Date())
+            fechaRegistro: Date()
+        )
+        estudiantes.append(nuevoEstudiante)
+        estudiantes.sort { $0.fechaRegistro > $1.fechaRegistro }
     }
     
-    func eliminarEstudiante(at offsets: IndexSet){
+    func eliminarEstudiante(at offsets: IndexSet) {
         estudiantes.remove(atOffsets: offsets)
     }
     
-    
-    func cargarEstudiantesPrueba(){
+    func cargarEstudiantesDePrueba() {
+        let ayer = Date().addingTimeInterval(-86400)
+        let antesDeAyer = Date().addingTimeInterval(-172800)
+        
         estudiantes = [
-            Estudiante(nombre: "Carlos", edad: 22, carrera: "Medicina", fechaRegistro: Date().addingTimeInterval(-86400)),
-            Estudiante(nombre: "Ana", edad: 21, carrera: "Igneieria", fechaRegistro: Date().addingTimeInterval(-172800))
+            Estudiante(nombre: "Ana García", edad: 22, carrera: "Medicina", fechaRegistro: ayer),
+            Estudiante(nombre: "Carlos Ruiz", edad: 20, carrera: "Ingeniería", fechaRegistro: antesDeAyer)
         ]
     }
-    
 }
